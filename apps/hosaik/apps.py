@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class HosaikConfig(AppConfig):
-    name = 'hosaik'
+    name = "apps.hosaik"
