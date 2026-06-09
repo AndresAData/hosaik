@@ -1,0 +1,326 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Hosaik | Backend Infrastructure
+{% endblock %}
+
+{% block content %}
+  <!-- HERO -->
+
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+        <!-- LEFT SIDE -->
+
+        <div class="col-lg-6">
+          <span class="badge rounded-pill text-bg-primary mb-4 px-3 py-2">Backend Infrastructure</span>
+
+          <h1 class="hero-title mb-4">
+            Build scalable
+            <span class="hero-highlight">backend systems</span>
+          </h1>
+
+          <p class="hero-text mb-5">Automation, APIs, ETL pipelines, monitoring and modern backend architecture for scalable products.</p>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#" class="btn btn-primary-custom">
+              <i class="bi bi-rocket-takeoff me-2"></i>
+
+              Get Started
+            </a>
+
+            <a href="#" class="btn btn-outline-custom">
+              <i class="bi bi-journal-code me-2"></i>
+
+              Documentation
+            </a>
+
+            <a href="#" class="btn btn-outline-custom">
+              <i class="bi bi-file-earmark-person me-2"></i>
+
+              View CV
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="col-lg-6">
+          <div class="glass-card p-5 h-100">
+            <!-- HEADER -->
+
+            <div class="text-center mb-5">
+              <div class="stack-icon mx-auto mb-4" style="
+                                width: 120px;
+                                height: 120px;
+                                font-size: 3rem;
+                            ">
+                <i class="bi bi-boxes"></i>
+              </div>
+
+              <span class="badge text-bg-primary mb-3 px-3 py-2">Hosaik Core</span>
+
+              <h2 class="fw-bold mb-3">Backend Infrastructure</h2>
+
+              <p class="text-secondary mb-0">Modular systems focused on APIs, automation, ETL pipelines and scalable backend architecture.</p>
+            </div>
+
+            <!-- FEATURES -->
+
+            <div class="row g-4">
+              <!-- Backend -->
+
+              <div class="col-6">
+                <div class="glass-card p-4 text-center h-100">
+                  <div class="mb-3">
+                    <i class="bi bi-server fs-2"></i>
+                  </div>
+
+                  <h5 class="fw-bold mb-2">Backend</h5>
+
+                  <small class="text-secondary">Django and FastAPI service architecture</small>
+                </div>
+              </div>
+
+              <!-- Data -->
+
+              <div class="col-6">
+                <div class="glass-card p-4 text-center h-100">
+                  <div class="mb-3">
+                    <i class="bi bi-database fs-2"></i>
+                  </div>
+
+                  <h5 class="fw-bold mb-2">Data</h5>
+
+                  <small class="text-secondary">ETL pipelines, analytics and SQL</small>
+                </div>
+              </div>
+
+              <!-- Automation -->
+
+              <div class="col-6">
+                <div class="glass-card p-4 text-center h-100">
+                  <div class="mb-3">
+                    <i class="bi bi-lightning-charge fs-2"></i>
+                  </div>
+
+                  <h5 class="fw-bold mb-2">Automation</h5>
+
+                  <small class="text-secondary">Real-time workflows and background tasks</small>
+                </div>
+              </div>
+
+              <!-- Monitoring -->
+
+              <div class="col-6">
+                <div class="glass-card p-4 text-center h-100">
+                  <div class="mb-3">
+                    <i class="bi bi-activity fs-2"></i>
+                  </div>
+
+                  <h5 class="fw-bold mb-2">Monitoring</h5>
+
+                  <small class="text-secondary">Logs, metrics and observability</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK SECTION --> <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold mb-3">Tech Stack</h2> <p class="text-secondary">Technologies used to build scalable backend systems</p>
+      </div> <div class="row g-4 justify-content-center">
+        <!-- PYTHON --> <div class="col-md-6 col-lg-4">
+          <div class="glass-card p-4 text-center h-100">
+            <div class="stack-icon mb-4">
+              <i class="bi bi-code-slash"></i>
+            </div> <h4 class="fw-bold mb-3">Python</h4> <p class="text-secondary mb-0">Core language used for backend development, automation and APIs.</p>
+          </div>
+        </div> <!-- DJANGO --> <div class="col-md-6 col-lg-4">
+          <div class="glass-card p-4 text-center h-100">
+            <div class="stack-icon mb-4">
+              <i class="bi bi-server"></i>
+            </div> <h4 class="fw-bold mb-3">Django</h4> <p class="text-secondary mb-0">Modular backend architecture, authentication and CMS systems.</p>
+          </div>
+        </div> <!-- FASTAPI --> <div class="col-md-6 col-lg-4">
+          <div class="glass-card p-4 text-center h-100">
+            <div class="stack-icon mb-4">
+              <i class="bi bi-lightning-charge"></i>
+            </div> <h4 class="fw-bold mb-3">FastAPI</h4> <p class="text-secondary mb-0">High-performance APIs, ETL services and async workflows.</p>
+          </div>
+        </div> <!-- SQL --> <div class="col-md-6 col-lg-4">
+          <div class="glass-card p-4 text-center h-100">
+            <div class="stack-icon mb-4">
+              <i class="bi bi-database"></i>
+            </div> <h4 class="fw-bold mb-3">SQL</h4> <p class="text-secondary mb-0">Structured data modeling, analytics and query optimization.</p>
+          </div>
+        </div> <!-- HTMX --> <div class="col-md-6 col-lg-4">
+          <div class="glass-card p-4 text-center h-100">
+            <div class="stack-icon mb-4">
+              <i class="bi bi-arrow-repeat"></i>
+            </div> <h4 class="fw-bold mb-3">HTMX</h4> <p class="text-secondary mb-0">Dynamic interfaces without massive frontend frameworks.</p>
+          </div>
+        </div> <!-- DEVOPS --> <div class="col-md-6 col-lg-4">
+          <div class="glass-card p-4 text-center h-100">
+            <div class="stack-icon mb-4">
+              <i class="bi bi-cloud"></i>
+            </div> <h4 class="fw-bold mb-3">DevOps</h4> <p class="text-secondary mb-0">Deployment, automation and scalable infrastructure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+          <h2 class="fw-bold">Featured Projects</h2>
+
+          <p class="text-secondary mb-0">Systems, APIs and automation projects</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- EXAMPLES -->
+
+        <div class="col-lg-4">
+          <div class="glass-card p-4 h-100">
+            <div class="project-card-image mb-4"></div>
+
+            <span class="badge text-bg-primary mb-3">FastAPI</span>
+
+            <h4 class="fw-bold">ETL Monitoring System</h4>
+
+            <p class="text-secondary">Real-time observability system for ETL pipelines and task orchestration.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="glass-card p-4 h-100">
+            <div class="project-card-image mb-4"></div>
+
+            <span class="badge text-bg-success mb-3">Django</span>
+
+            <h4 class="fw-bold">Portfolio Platform</h4>
+
+            <p class="text-secondary">Modular backend-focused portfolio with analytics and CMS integration.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="glass-card p-4 h-100">
+            <div class="project-card-image mb-4"></div>
+
+            <span class="badge text-bg-info mb-3">Automation</span>
+
+            <h4 class="fw-bold">Log Processing Pipeline</h4>
+
+            <p class="text-secondary">Event ingestion and monitoring architecture with dynamic dashboards.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- REAL LOOP -->
+
+      {% comment %}
+      <div class="row g-4">
+        {% for project in projects %}
+          <div class="col-lg-4">
+            <div class="glass-card p-4 h-100">
+              {% if project.image %}
+                <img src="{{ project.image.url }}" class="img-fluid rounded-4 mb-4" alt="{{ project.title }}" />
+              {% endif %}
+
+              <h4 class="fw-bold">{{ project.title }}</h4>
+
+              <p class="text-secondary">{{ project.description|truncatewords:20 }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% endcomment %}
+    </div>
+  </section>
+
+  <!-- BLOG -->
+
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+          <h2 class="fw-bold">Latest Posts</h2>
+
+          <p class="text-secondary mb-0">Thoughts about backend engineering and systems</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="glass-card p-4 h-100">
+            <div class="blog-card-image mb-4"></div>
+
+            <small class="text-secondary">June 2026</small>
+
+            <h4 class="fw-bold mt-3">Building scalable ETL systems with FastAPI</h4>
+
+            <p class="text-secondary">Architecture patterns for modern data ingestion and automation systems.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="glass-card p-4 h-100">
+            <div class="blog-card-image mb-4"></div>
+
+            <small class="text-secondary">June 2026</small>
+
+            <h4 class="fw-bold mt-3">Django architecture for modular platforms</h4>
+
+            <p class="text-secondary">Reusable apps, clean structures and scalable backend patterns.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="glass-card p-4 h-100">
+            <div class="blog-card-image mb-4"></div>
+
+            <small class="text-secondary">June 2026</small>
+
+            <h4 class="fw-bold mt-3">Real-time monitoring with HTMX</h4>
+
+            <p class="text-secondary">Dynamic dashboards without needing massive frontend frameworks.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- REAL LOOP -->
+
+      {% comment %}
+      <div class="row g-4">
+        {% for post in posts %}
+          <div class="col-lg-4">
+            <div class="glass-card p-4 h-100">
+              {% if post.cover %}
+                <img src="{{ post.cover.url }}" class="img-fluid rounded-4 mb-4" alt="{{ post.title }}" />
+              {% endif %}
+
+              <small class="text-secondary">{{ post.created_at|date:'F Y' }}</small>
+
+              <h4 class="fw-bold mt-3">{{ post.title }}</h4>
+
+              <p class="text-secondary">{{ post.content|truncatewords:20 }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% endcomment %}
+    </div>
+  </section>
+{% endblock %}```
