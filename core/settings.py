@@ -28,7 +28,9 @@ MY_APPS: list[str] = [
     "apps.accounts.apps.AccountsConfig",
 ]
 
-THIRD_PARTY_APPS: list[str] = []
+THIRD_PARTY_APPS: list[str] = [
+    "django_extensions",
+]
 
 DJANGO_APPS: list[str] = [
     "django.contrib.admin",
@@ -126,3 +128,4 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

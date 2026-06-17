@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 
@@ -40,6 +41,12 @@ class Post(BaseModel):
     class Status(models.TextChoices):
         DRAFT = "DRAFT", "Draft"
         PUBLISHED = "PUBLISHED", "Published"
+
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="posts",
+    )
 
     title = models.CharField(max_length=200)
 
@@ -113,6 +120,7 @@ class PostContent(BaseModel):
 
     class Meta:
         ordering = ["order"]
+        indexes = [models.Index(fields=["post", "order"])]
 
         verbose_name = "Post Content"
         verbose_name_plural = "Post Contents"
