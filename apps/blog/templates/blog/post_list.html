@@ -52,7 +52,7 @@
                   {{ post.reading_time }} min read
                 </div>
 
-                <a href="#" class="btn btn-outline-primary rounded-pill px-4">View More</a>
+                <a href="{% url 'blog:post' post.slug %}" class="btn btn-outline-primary rounded-pill px-4">View More</a>
               </div>
             </div>
           </div>

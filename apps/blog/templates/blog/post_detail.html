@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="container py-5">
+    <!-- ===================================================== -->
+    <!-- POST HEADER -->
+    <!-- ===================================================== -->
+
+    <div class="mb-5">
+      {% if post.cover %}
+        <img src="{{ post.cover.url }}" alt="{{ post.title }}" class="img-fluid rounded-4 shadow-lg w-100 mb-4" style="max-height: 500px; object-fit: cover;" />
+      {% endif %}
+
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        {% for tag in post.tags.all %}
+          <span class="badge bg-primary-subtle text-info border border-info-subtle rounded-pill px-3 py-2">{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+        <div>
+          <h1 class="display-5 fw-bold text-light mb-3">{{ post.title }}</h1>
+
+          <div class="d-flex align-items-center gap-3 text-secondary flex-wrap">
+            <span>
+              <i class="bi bi-person-circle me-1"></i>
+
+              {{ post.author.username }}
+            </span>
+
+            <span>
+              <i class="bi bi-calendar-event me-1"></i>
+
+              {{ post.created_at|date:'M d, Y' }}
+            </span>
+
+            <span>
+              <i class="bi bi-clock me-1"></i>
+
+              {{ post.reading_time }} min read
+            </span>
+          </div>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- ADMIN ACTIONS -->
+        <!-- ============================================= -->
+
+        {% if perms.blog.change_post %}
+          <div class="d-flex gap-2 flex-wrap">
+            <!-- CREATE CONTENT -->
+
+            <a href="#" class="btn btn-primary rounded-pill">
+              <i class="bi bi-plus-lg me-2"></i>
+
+              Add Entry
+            </a>
+
+            <!-- EDIT POST -->
+
+            <a href="#" class="btn btn-outline-light rounded-pill">
+              <i class="bi bi-pencil-square me-2"></i>
+
+              Edit Post
+            </a>
+
+            <!-- DELETE POST -->
+
+            <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#deletePostModal">
+              <i class="bi bi-trash me-2"></i>
+
+              Delete Post
+            </button>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- POST CONTENT -->
+    <!-- ===================================================== -->
+
+    <div class="card bg-dark border-0 shadow-lg rounded-4">
+      <div class="card-body p-4 p-lg-5">
+        {% for block in post.contents.all %}
+          <!-- ========================================= -->
+          <!-- CONTENT ACTIONS -->
+          <!-- ========================================= -->
+
+          {% if perms.blog.change_post %}
+            <div class="d-flex justify-content-end gap-2 mb-3">
+              <!-- EDIT ENTRY -->
+
+              <a href="#" class="btn btn-sm btn-outline-light rounded-circle"><i class="bi bi-pencil-square"></i></a>
+
+              <!-- DELETE ENTRY -->
+
+              <button type="button" class="btn btn-sm btn-outline-danger rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteEntryModal{{ block.id }}"><i class="bi bi-trash"></i></button>
+            </div>
+          {% endif %}
+
+          <!-- ========================================= -->
+          <!-- HEADING -->
+          <!-- ========================================= -->
+
+          {% if block.content_type == 'HEADING' %}
+            <h2 class="fw-bold text-light mt-5 mb-4">{{ block.title }}</h2>
+          {% endif %}
+
+          <!-- ========================================= -->
+          <!-- TEXT -->
+          <!-- ========================================= -->
+
+          {% if block.content_type == 'TEXT' %}
+            <div class="text-secondary fs-5 lh-lg mb-4">{{ block.content|linebreaks }}</div>
+          {% endif %}
+
+          <!-- ========================================= -->
+          <!-- CODE -->
+          <!-- ========================================= -->
+
+          {% if block.content_type == 'CODE' %}
+            <div class="mb-5">
+              {% if block.language %}
+                <div class="small text-info mb-2">{{ block.language }}</div>
+              {% endif %}
+
+              <pre class="bg-black text-light p-4 rounded-4 overflow-auto">
+                <code>{{ block.content }}</code>
+              </pre>
+            </div>
+          {% endif %}
+
+          <!-- ========================================= -->
+          <!-- IMAGE -->
+          <!-- ========================================= -->
+
+          {% if block.content_type == 'IMAGE' %}
+            {% if block.image %}
+              <img src="{{ block.image.url }}" alt="{{ block.title }}" class="img-fluid rounded-4 shadow mb-5" />
+            {% endif %}
+          {% endif %}
+
+          <!-- ========================================= -->
+          <!-- QUOTE -->
+          <!-- ========================================= -->
+
+          {% if block.content_type == 'QUOTE' %}
+            <blockquote class="border-start border-4 border-info ps-4 py-2 mb-5">
+              <p class="fs-4 fst-italic text-light mb-0">"{{ block.content }}"</p>
+            </blockquote>
+          {% endif %}
+
+          <!-- ========================================= -->
+          <!-- DELETE ENTRY MODAL -->
+          <!-- ========================================= -->
+
+          {% if perms.blog.delete_postcontent %}
+            <div class="modal fade" id="deleteEntryModal{{ block.id }}" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-light border border-secondary rounded-4">
+                  <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Delete Entry</h5>
+
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                  </div>
+
+                  <div class="modal-body">Are you sure you want to delete this content entry?</div>
+
+                  <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+
+                    <form action="#" method="post">
+                      {% csrf_token %}
+
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- BACK BUTTON -->
+    <!-- ===================================================== -->
+
+    <div class="mt-5">
+      <a href="#" class="btn btn-outline-primary rounded-pill px-4">
+        <i class="bi bi-arrow-left me-2"></i>
+
+        Back to Blog
+      </a>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- DELETE POST MODAL -->
+  <!-- ========================================================= -->
+
+  {% if perms.blog.delete_post %}
+    <div class="modal fade" id="deletePostModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light border border-secondary rounded-4">
+          <div class="modal-header border-secondary">
+            <h5 class="modal-title">Delete Post</h5>
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">Are you sure you want to permanently delete this post?</div>
+
+          <div class="modal-footer border-secondary">
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+
+            <form action="#" method="post">
+              {% csrf_token %}
+
+              <button type="submit" class="btn btn-danger">Delete Post</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

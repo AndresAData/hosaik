@@ -83,6 +83,9 @@ class Post(BaseModel):
 
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return f"/blog/{self.slug}/"
+
     def __str__(self):
 
         return self.title
