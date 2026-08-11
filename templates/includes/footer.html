@@ -1,35 +1,50 @@
-<footer class="border-top bg-body-tertiary py-5">
+<!--       ============================================================
+     FOOTER
+============================================================       -->
+<footer class="bg-dark text-white border-top border-secondary py-5">
   <div class="container">
     <div class="row gy-4 align-items-center">
-      <!-- Brand / Description -->
+      <!-- Brand -->
       <div class="col-md-6 text-center text-md-start">
-        <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
-          <span class="fw-bold text-info fs-3">H</span>
-          <span class="fw-semibold fs-5">Hosaik</span>
-        </div>
+        <a href="/" class="text-decoration-none d-inline-flex align-items-center gap-2 mb-2" aria-label="Hosaik Home">
+          <!-- Hosaik Icon -->
+          <span class="d-inline-flex align-items-center justify-content-center bg-info text-dark rounded-circle fw-bold fs-5" style="width: 42px; height: 42px;">H</span>
 
-        <p class="text-body-secondary mb-0">Software development, technology and digital creation.</p>
+          <span class="fw-semibold fs-5 text-white">Hosaik</span>
+        </a>
+
+        <p class="text-white-50 mb-0">Software development, technology and digital creation.</p>
       </div>
 
       <!-- Social Links -->
       <div class="col-md-6">
         <div class="d-flex justify-content-center justify-content-md-end gap-2">
-          <a href="#" class="btn btn-outline-secondary" aria-label="GitHub" title="GitHub"><i class="bi bi-github"></i></a>
+          <!-- GitHub -->
+          <a href="#" class="btn btn-outline-light" aria-label="GitHub" title="GitHub"><i class="bi bi-github"></i></a>
 
-          <a href="#" class="btn btn-outline-secondary" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <!-- LinkedIn -->
+          <a href="#" class="btn btn-outline-light" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
 
-          <a href="#" class="btn btn-outline-secondary" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+          <!-- Instagram -->
+          <a href="#" class="btn btn-outline-light" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
 
-          <a href="mailto:hello@hosaik.dev" class="btn btn-outline-secondary" aria-label="Email" title="Email"><i class="bi bi-envelope"></i></a>
+          <!-- Email -->
+          <a href="mailto:hello@hosaik.dev" class="btn btn-outline-info" aria-label="Email" title="Email"><i class="bi bi-envelope"></i></a>
         </div>
       </div>
     </div>
 
-    <hr class="my-4" />
+    <!-- Divider -->
+    <hr class="border-secondary my-4" />
 
-    <!-- Copyright -->
-    <div class="text-center text-body-secondary small">
-      ©{% now 'Y' %}Hosaik. All rights reserved.
+    <!-- Bottom -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <small class="text-white-50">©{% now 'Y' %}Hosaik. All rights reserved.</small>
+
+      <small class="text-white-50">Built with Python & Django</small>
     </div>
   </div>
 </footer>
+<!--       ============================================================
+     END FOOTER
+============================================================       -->
