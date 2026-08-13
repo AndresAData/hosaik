@@ -1,6 +1,12 @@
 from django.urls import path
 
-from my_apps.portafolios.views import ProjectDetailView, ProjectListView
+from my_apps.portafolios.views import (
+    ProjectContentUpdateView,
+    ProjectCreateView,
+    ProjectDetailView,
+    ProjectListView,
+    ProjectUpdateView,
+)
 
 app_name = "portafolio"
 
@@ -14,5 +20,20 @@ urlpatterns = [
         "projects/<slug:slug>/",
         ProjectDetailView.as_view(),
         name="project_detail",
+    ),
+    path(
+        "projects/<slug:slug>/content/<int:pk>/edit/",
+        ProjectContentUpdateView.as_view(),
+        name="content_edit",
+    ),
+    path(
+        "projects/create/",
+        ProjectCreateView.as_view(),
+        name="project_create",
+    ),
+    path(
+        "projects/<slug:slug>/edit/",
+        ProjectUpdateView.as_view(),
+        name="project_update",
     ),
 ]

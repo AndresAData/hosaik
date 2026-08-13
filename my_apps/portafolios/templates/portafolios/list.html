@@ -8,13 +8,21 @@
   <section class="py-5">
     <div class="container">
       <!-- Header -->
-      <div class="row mb-5">
+      <div class="row align-items-end mb-5">
         <div class="col-lg-8">
           <span class="badge text-bg-primary rounded-pill px-3 py-2 mb-3">Portfolio</span>
 
           <h1 class="display-5 fw-bold mb-3">My Projects</h1>
 
           <p class="lead text-body-secondary mb-0">A collection of projects I've built while learning, experimenting and creating with technology.</p>
+        </div>
+
+        <!-- Add Project -->
+        <div class="col-lg-4 mt-4 mt-lg-0 text-lg-end">
+          <a href="{% url 'portafolio:project_create' %}" class="btn btn-primary rounded-pill px-4">
+            <i class="bi bi-plus-lg me-2"></i>
+            Add project
+          </a>
         </div>
       </div>
 
@@ -36,19 +44,26 @@
 
               <!-- Content -->
               <div class="card-body p-4 d-flex flex-column">
-                <div class="mb-3">
+                <!-- Badge + Edit -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
                   <span class="badge rounded-pill text-bg-light border">Project</span>
+
+                  <!-- Edit -->
+                  <a href="{% url 'portafolio:project_update' project.slug %}" class="btn btn-sm btn-outline-secondary rounded-circle" aria-label="Edit {{ project.title }}" title="Edit project"><i class="bi bi-pencil"></i></a>
                 </div>
 
+                <!-- Title -->
                 <h2 class="h4 fw-bold mb-2">{{ project.title }}</h2>
 
+                <!-- Description -->
                 <p class="text-body-secondary mb-4">{{ project.description|truncatewords:25 }}</p>
 
+                <!-- Actions -->
                 <div class="mt-auto d-flex gap-2">
                   <a href="{% url 'portafolio:project_detail' project.slug %}" class="btn btn-primary rounded-pill px-4">View project</a>
 
                   {% if project.url %}
-                    <a href="{{ project.url }}" class="btn btn-outline-secondary rounded-pill" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ project.title }}"><i class="bi bi-box-arrow-up-right"></i></a>
+                    <a href="{{ project.url }}" class="btn btn-outline-secondary rounded-pill" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ project.title }}" title="Visit project"><i class="bi bi-box-arrow-up-right"></i></a>
                   {% endif %}
                 </div>
               </div>
@@ -64,7 +79,12 @@
 
               <h2 class="h4 fw-bold">No projects yet</h2>
 
-              <p class="text-body-secondary mb-0">Projects will appear here once they are published.</p>
+              <p class="text-body-secondary mb-4">Projects will appear here once they are published.</p>
+
+              <a href="{% url 'portafolio:project_create' %}" class="btn btn-primary rounded-pill px-4">
+                <i class="bi bi-plus-lg me-2"></i>
+                Create your first project
+              </a>
             </div>
           </div>
         {% endfor %}
