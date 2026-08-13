@@ -1,0 +1,240 @@
+{% extends '../base.html' %}
+
+{% block title %}
+  Create Project | Hosaik
+{% endblock %}
+
+{% block content %}
+  <section class="py-5">
+    <div class="container">
+      <!-- Header -->
+      <div class="row justify-content-center mb-5">
+        <div class="col-xl-9">
+          <a href="{% url 'portafolio:project_list' %}" class="text-decoration-none text-body-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to projects
+          </a>
+
+          <div class="mt-4">
+            <span class="badge text-bg-primary rounded-pill px-3 py-2 mb-3">Portfolio</span>
+
+            <h1 class="display-5 fw-bold mb-3">Create project</h1>
+
+            <p class="lead text-body-secondary mb-0">Add a new project to your Hosaik portfolio.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="row justify-content-center">
+        <div class="col-xl-9">
+          <form method="post" enctype="multipart/form-data" id="project-create-form">
+            {% csrf_token %}
+
+            <!-- PROJECT -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4 p-lg-5">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <div class="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                    <i class="bi bi-folder2-open fs-5"></i>
+                  </div>
+
+                  <div>
+                    <h2 class="h4 fw-bold mb-1">Project information</h2>
+
+                    <p class="text-body-secondary mb-0">Basic information about your project.</p>
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <div class="mb-4">
+                  <label for="{{ form.title.id_for_label }}" class="form-label fw-semibold">Project title</label>
+
+                  {{ form.title }}
+
+                  {% for error in form.title.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Description -->
+                <div class="mb-4">
+                  <label for="{{ form.description.id_for_label }}" class="form-label fw-semibold">Description</label>
+
+                  {{ form.description }}
+
+                  {% for error in form.description.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Image -->
+                <div class="mb-4">
+                  <label for="{{ form.image.id_for_label }}" class="form-label fw-semibold">Project image</label>
+
+                  {{ form.image }}
+
+                  <div class="form-text">Upload the main image for your project.</div>
+
+                  {% for error in form.image.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- URL -->
+                <div>
+                  <label for="{{ form.url.id_for_label }}" class="form-label fw-semibold">Project URL</label>
+
+                  {{ form.url }}
+
+                  <div class="form-text">Optional link to the live project or repository.</div>
+
+                  {% for error in form.url.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4 p-lg-5">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <div class="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                    <i class="bi bi-file-earmark-text fs-5"></i>
+                  </div>
+
+                  <div>
+                    <h2 class="h4 fw-bold mb-1">First project content</h2>
+
+                    <p class="text-body-secondary mb-0">Add the first section of your project case study.</p>
+                  </div>
+                </div>
+
+                {% if content_form.non_field_errors %}
+                  <div class="alert alert-danger rounded-3">{{ content_form.non_field_errors }}</div>
+                {% endif %}
+
+                <!-- Content title -->
+                <div class="mb-4">
+                  <label for="{{ content_form.title.id_for_label }}" class="form-label fw-semibold">Content title</label>
+
+                  {{ content_form.title }}
+
+                  {% for error in content_form.title.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Content type -->
+                <div class="mb-4">
+                  <label for="{{ content_form.content_type.id_for_label }}" class="form-label fw-semibold">Content type</label>
+
+                  {{ content_form.content_type }}
+
+                  {% for error in content_form.content_type.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Content -->
+                <div class="mb-4">
+                  <label for="{{ content_form.content.id_for_label }}" class="form-label fw-semibold">Content</label>
+
+                  {{ content_form.content }}
+
+                  {% for error in content_form.content.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Image -->
+                <div>
+                  <label for="{{ content_form.image.id_for_label }}" class="form-label fw-semibold">Content image</label>
+
+                  {{ content_form.image }}
+
+                  <div class="form-text">Only required when the content type is image.</div>
+
+                  {% for error in content_form.image.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex flex-column flex-sm-row justify-content-end gap-2">
+              <a href="{% url 'portafolio:project_list' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+
+              <button type="submit" class="btn btn-primary rounded-pill px-4" id="submit-button">
+                <i class="bi bi-plus-lg me-2"></i>
+                Create project
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Error Toast -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+    <div id="form-error-toast" class="toast border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>
+
+        <strong class="me-auto">Unable to create project</strong>
+
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+
+      <div class="toast-body">Please check the form fields and try again.</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('project-create-form')
+      const submitButton = document.getElementById('submit-button')
+    
+      const toastElement = document.getElementById('form-error-toast')
+    
+      if (!form || !submitButton || !toastElement) {
+        return
+      }
+    
+      const hasErrors = form.querySelector('.text-danger') || form.querySelector('.alert-danger')
+    
+      if (hasErrors) {
+        const toast = new bootstrap.Toast(toastElement, {
+          autohide: false
+        })
+    
+        toast.show()
+    
+        const firstError = form.querySelector('.text-danger')
+    
+        if (firstError) {
+          const field = firstError.previousElementSibling
+    
+          if (field) {
+            field.focus()
+          }
+        }
+      }
+    
+      form.addEventListener('submit', () => {
+        submitButton.disabled = true
+    
+        submitButton.innerHTML = `
+            <span
+              class="spinner-border spinner-border-sm me-2"
+              aria-hidden="true"
+            ></span>
+            Creating project...
+          `
+      })
+    })
+  </script>
+{% endblock %}

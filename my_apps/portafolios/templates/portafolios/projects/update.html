@@ -1,0 +1,201 @@
+{% extends '../../base.html' %}
+
+{% block title %}
+  Edit {{ project.title }} | Hosaik
+{% endblock %}
+
+{% block content %}
+  <section class="py-5">
+    <div class="container">
+      <!-- Header -->
+      <div class="row justify-content-center mb-5">
+        <div class="col-xl-9">
+          <a href="{% url 'portafolio:project_detail' project.slug %}" class="text-decoration-none text-body-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to project
+          </a>
+
+          <div class="mt-4">
+            <span class="badge text-bg-primary rounded-pill px-3 py-2 mb-3">Portfolio</span>
+
+            <h1 class="display-5 fw-bold mb-3">Edit project</h1>
+
+            <p class="lead text-body-secondary mb-0">
+              Update the information of
+              <strong>{{ project.title }}</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="row justify-content-center">
+        <div class="col-xl-9">
+          <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 p-lg-5">
+              <form method="post" enctype="multipart/form-data" id="project-update-form">
+                {% csrf_token %}
+
+                <!-- Non field errors -->
+                {% if form.non_field_errors %}
+                  <div class="alert alert-danger rounded-3">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+
+                    {{ form.non_field_errors }}
+                  </div>
+                {% endif %}
+
+                <!-- Title -->
+                <div class="mb-4">
+                  <label for="{{ form.title.id_for_label }}" class="form-label fw-semibold">Project title</label>
+
+                  {{ form.title }}
+
+                  {% for error in form.title.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Description -->
+                <div class="mb-4">
+                  <label for="{{ form.description.id_for_label }}" class="form-label fw-semibold">Description</label>
+
+                  {{ form.description }}
+
+                  {% for error in form.description.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Image -->
+                <div class="mb-4">
+                  <label for="{{ form.image.id_for_label }}" class="form-label fw-semibold">Project image</label>
+
+                  {% if project.image %}
+                    <div class="mb-3">
+                      <div class="ratio ratio-16x9 rounded-4 overflow-hidden bg-body-secondary">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-100 h-100 object-fit-cover" />
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {{ form.image }}
+
+                  <div class="form-text">Upload a new image if you want to replace the current one.</div>
+
+                  {% for error in form.image.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- URL -->
+                <div class="mb-4">
+                  <label for="{{ form.url.id_for_label }}" class="form-label fw-semibold">Project URL</label>
+
+                  {{ form.url }}
+
+                  <div class="form-text">Optional link to the live project or repository.</div>
+
+                  {% for error in form.url.errors %}
+                    <div class="text-danger small mt-1">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <!-- Project metadata -->
+                <div class="bg-body-tertiary rounded-4 p-4 mb-4">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <span class="small text-body-secondary d-block">Created</span>
+
+                      <strong>{{ project.created_at|date:'M d, Y H:i' }}</strong>
+                    </div>
+
+                    <div class="col-md-6">
+                      <span class="small text-body-secondary d-block">Last updated</span>
+
+                      <strong>{{ project.updated_at|date:'M d, Y H:i' }}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 pt-2">
+                  <a href="{% url 'portafolio:project_detail' project.slug %}" class="btn btn-outline-secondary rounded-pill px-4">
+                    <i class="bi bi-x-lg me-2"></i>
+                    Cancel
+                  </a>
+
+                  <button type="submit" class="btn btn-primary rounded-pill px-4" id="submit-button">
+                    <i class="bi bi-check-lg me-2"></i>
+                    Save changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Error Toast -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+    <div id="form-error-toast" class="toast border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>
+
+        <strong class="me-auto">Unable to update project</strong>
+
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+
+      <div class="toast-body">Please check the form fields and try again.</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('project-update-form')
+      const submitButton = document.getElementById('submit-button')
+      const toastElement = document.getElementById('form-error-toast')
+    
+      if (!form || !submitButton || !toastElement) {
+        return
+      }
+    
+      // Show errors
+      const hasErrors = form.querySelector('.text-danger') || form.querySelector('.alert-danger')
+    
+      if (hasErrors) {
+        const toast = new bootstrap.Toast(toastElement, {
+          autohide: false
+        })
+    
+        toast.show()
+    
+        const firstError = form.querySelector('.text-danger')
+    
+        if (firstError) {
+          const field = firstError.previousElementSibling
+    
+          if (field) {
+            field.focus()
+          }
+        }
+      }
+    
+      // Prevent multiple submissions
+      form.addEventListener('submit', () => {
+        submitButton.disabled = true
+    
+        submitButton.innerHTML = `
+                <span
+                  class="spinner-border spinner-border-sm me-2"
+                  aria-hidden="true"
+                ></span>
+                Saving changes...
+              `
+      })
+    })
+  </script>
+{% endblock %}
