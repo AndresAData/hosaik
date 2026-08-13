@@ -1,0 +1,74 @@
+{% extends '../base.html' %}
+
+{% block title %}
+  Portafolios
+{% endblock %}
+
+{% block content %}
+  <section class="py-5">
+    <div class="container">
+      <!-- Header -->
+      <div class="row mb-5">
+        <div class="col-lg-8">
+          <span class="badge text-bg-primary rounded-pill px-3 py-2 mb-3">Portfolio</span>
+
+          <h1 class="display-5 fw-bold mb-3">My Projects</h1>
+
+          <p class="lead text-body-secondary mb-0">A collection of projects I've built while learning, experimenting and creating with technology.</p>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="row g-4">
+        {% for project in projects %}
+          <div class="col-12 col-md-6 col-xl-4">
+            <article class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+              <!-- Image -->
+              <div class="ratio ratio-16x9 bg-body-secondary">
+                {% if project.image %}
+                  <img src="{{ project.image.url }}" class="card-img-top object-fit-cover" alt="{{ project.title }}" loading="lazy" />
+                {% else %}
+                  <div class="d-flex align-items-center justify-content-center h-100">
+                    <span class="text-body-secondary">No image available</span>
+                  </div>
+                {% endif %}
+              </div>
+
+              <!-- Content -->
+              <div class="card-body p-4 d-flex flex-column">
+                <div class="mb-3">
+                  <span class="badge rounded-pill text-bg-light border">Project</span>
+                </div>
+
+                <h2 class="h4 fw-bold mb-2">{{ project.title }}</h2>
+
+                <p class="text-body-secondary mb-4">{{ project.description|truncatewords:25 }}</p>
+
+                <div class="mt-auto d-flex gap-2">
+                  <a href="{% url 'portafolio:project_detail' project.slug %}" class="btn btn-primary rounded-pill px-4">View project</a>
+
+                  {% if project.url %}
+                    <a href="{{ project.url }}" class="btn btn-outline-secondary rounded-pill" target="_blank" rel="noopener noreferrer" aria-label="Visit {{ project.title }}"><i class="bi bi-box-arrow-up-right"></i></a>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          </div>
+        {% empty %}
+          <!-- Empty state -->
+          <div class="col-12">
+            <div class="text-center py-5">
+              <div class="bg-body-tertiary rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                <i class="bi bi-folder2-open fs-2 text-body-secondary"></i>
+              </div>
+
+              <h2 class="h4 fw-bold">No projects yet</h2>
+
+              <p class="text-body-secondary mb-0">Projects will appear here once they are published.</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

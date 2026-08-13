@@ -25,6 +25,7 @@ ALLOWED_HOSTS = []
 
 MY_APPS = [
     "my_apps.hosaik.apps.HosaikConfig",
+    "my_apps.portafolios.apps.PortafoliosConfig",
 ]
 
 
@@ -38,7 +39,7 @@ DJANGO_APPS = [
 ]
 
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ["django_extensions"]
 
 INSTALLED_APPS = MY_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
