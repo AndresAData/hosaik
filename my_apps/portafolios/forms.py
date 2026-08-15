@@ -1,6 +1,21 @@
 from django import forms
 
-from .models import Project, ProjectContent
+from my_apps.portafolios.models import Project, ProjectContent, Tag
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["name"]
+
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "e.g. Django",
+                }
+            ),
+        }
 
 
 class ProjectForm(forms.ModelForm):
@@ -11,6 +26,7 @@ class ProjectForm(forms.ModelForm):
             "description",
             "image",
             "url",
+            "tags",
         ]
 
         widgets = {
@@ -23,8 +39,8 @@ class ProjectForm(forms.ModelForm):
             "description": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Project description",
                     "rows": 5,
+                    "placeholder": "Describe your project...",
                 }
             ),
             "image": forms.ClearableFileInput(
@@ -36,6 +52,11 @@ class ProjectForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "placeholder": "https://example.com",
+                }
+            ),
+            "tags": forms.SelectMultiple(
+                attrs={
+                    "class": "form-select",
                 }
             ),
         }

@@ -7,6 +7,7 @@ from my_apps.portafolios.views import (
     ProjectDetailView,
     ProjectListView,
     ProjectUpdateView,
+    TagCreateView,
 )
 
 app_name = "portafolio"
@@ -21,6 +22,11 @@ urlpatterns = [
         "projects/create/",
         ProjectCreateView.as_view(),
         name="project_create",
+    ),
+    path(
+        "tags/create/",
+        TagCreateView.as_view(),
+        name="tag_create",
     ),
     path(
         "projects/<slug:slug>/edit/",

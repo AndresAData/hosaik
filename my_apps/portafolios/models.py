@@ -5,45 +5,83 @@ from django.db import models
 from django.utils.text import slugify
 
 
-class Project(models.Model):
-    title = models.CharField(
-        max_length=100,
-    )
-    description = models.TextField()
-    image = models.ImageField(
-        upload_to="portfolio/projects/",
-    )
-    slug = models.SlugField(
-        max_length=120,
+class Tag(models.Model):
+    name = models.CharField(
+        max_length=50,
         unique=True,
-        blank=True,
-        editable=False,
     )
-    url = models.URLField(
+
+    slug = models.SlugField(
+        unique=True,
         blank=True,
     )
 
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
+        ordering = ["name"]
+
+
+class Project(models.Model):
+    title = models.CharField(
+        max_length=100,
+    )
+
+    description = models.TextField()
+
+    image = models.ImageField(
+        upload_to="portfolio/images/",
+    )
+
+    slug = models.SlugField(
+        unique=True,
+        blank=True,
+    )
+
+    url = models.URLField(
+        blank=True,
+    )
+
+    tags = models.ManyToManyField(
+        Tag,
+        related_name="projects",
+        blank=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
     updated_at = models.DateTimeField(
         auto_now=True,
     )
-
-    class Meta:
-        verbose_name = "Project"
-        verbose_name_plural = "Projects"
-        ordering = ["-created_at"]
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            unique_id = str(uuid4())[:8]
-            self.slug = slugify(f"{self.title}-{unique_id}")
+            self.slug = slugify(f"{self.title}-{str(uuid4())[:8]}")
 
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Project"
+        verbose_name_plural = "Projects"
+        ordering = ["-created_at"]
 
 
 class ProjectContent(models.Model):
