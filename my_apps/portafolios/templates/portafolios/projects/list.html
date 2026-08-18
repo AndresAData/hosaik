@@ -26,12 +26,14 @@
 
         <div class="col-lg-4 mt-4 mt-lg-0 text-lg-end">
           {# TODO: Move staff permission to the CBV using StaffRequiredMixin #}
-          {% if user.is_staff %}
+          {% comment %} {% if user.is_staff %}
+            {% endcomment %}
             <a href="{% url 'portafolio:project_create' %}" class="btn btn-primary rounded-pill px-4">
               <i class="bi bi-plus-lg me-2"></i>
               Add project
             </a>
-          {% endif %}
+            {% comment %}
+          {% endif %} {% endcomment %}
         </div>
       </div>
 

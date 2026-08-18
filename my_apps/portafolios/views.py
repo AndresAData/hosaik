@@ -54,12 +54,17 @@ class ProjectUpdateView(UpdateView):
     template_name = "portafolios/projects/update.html"
     context_object_name = "project"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["tag_form"] = TagForm()
+
+        return context
+
     def get_success_url(self):
         return reverse(
             "portafolio:project_detail",
-            kwargs={
-                "slug": self.object.slug,
-            },
+            kwargs={"slug": self.object.slug},
         )
 
 
