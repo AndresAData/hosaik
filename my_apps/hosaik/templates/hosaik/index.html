@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block content %}
-  <!--   ============================================================
+  <!--         ============================================================
      HERO
-=============================================================   -->
+=============================================================         -->
   <section id="home" class="bg-body" aria-labelledby="hero-title">
     <div class="container py-5">
       <div class="row align-items-center justify-content-center g-5 py-lg-5">
@@ -69,9 +69,9 @@
     </div>
   </section>
 
-  <!--   ============================================================
+  <!--         ============================================================
      TECHNOLOGIES
-=============================================================   -->
+=============================================================         -->
   <section id="technologies" class="py-5 bg-dark text-white" aria-labelledby="technologies-title">
     <div class="container py-5">
       <!-- Header -->
@@ -192,9 +192,9 @@
     </div>
   </section>
 
-  <!--   ============================================================
+  <!--         ============================================================
      PROJECTS
-=============================================================   -->
+=============================================================         -->
   <section id="projects" class="py-5 bg-body" aria-labelledby="projects-title">
     <div class="container py-5">
       <!-- Header -->
@@ -207,7 +207,7 @@
           <p class="text-body-secondary lead mb-0" style="max-width: 700px;">Projects I have built while learning, experimenting and turning ideas into software.</p>
         </div>
 
-        <a href="#" class="btn btn-outline-dark rounded-pill px-4 flex-shrink-0">
+        <a href="{% url 'portafolio:project_list' %}" class="btn btn-outline-dark rounded-pill px-4 flex-shrink-0">
           View all
           <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
         </a>
@@ -216,145 +216,48 @@
       <!-- Projects carousel -->
       <div id="projectsCarousel" class="carousel slide" data-bs-ride="false" aria-label="Projects carousel">
         <div class="carousel-inner">
-          <!-- Project 1 -->
-          <div class="carousel-item active">
-            <article class="card border-0 shadow-sm rounded-5 overflow-hidden">
-              <div class="row g-0 align-items-stretch">
-                <div class="col-lg-6">
-                  <img src="{% static 'images/project-placeholder.jpg' %}" class="img-fluid w-100 h-100 object-fit-cover" alt="Preview of Hosaik Django project" loading="lazy" decoding="async" />
+          {% for project in projects %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <article class="card border-0 shadow-sm rounded-4 overflow-hidden mx-auto">
+                {% if project.image %}
+                  <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" loading="lazy" style="height: 280px; object-fit: cover;" />
+                {% endif %}
+
+                <div class="card-body p-4">
+                  <h3 class="h5 fw-bold mb-3">{{ project.title }}</h3>
+
+                  <p class="text-body-secondary mb-4">{{ project.description }}</p>
+
+                  <a href="{% url 'portafolio:project_detail' project.slug %}" class="btn btn-info rounded-pill px-4">
+                    View more
+                    <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+                  </a>
                 </div>
-
-                <div class="col-lg-6">
-                  <div class="card-body p-4 p-lg-5 h-100 d-flex flex-column justify-content-center">
-                    <div class="mb-3">
-                      <span class="badge rounded-pill text-bg-info px-3 py-2">Django</span>
-                    </div>
-
-                    <h3 class="display-6 fw-bold mb-3">Hosaik Portfolio</h3>
-
-                    <p class="text-body-secondary mb-4">A personal platform created with Django to showcase projects, technologies, knowledge and digital creation.</p>
-
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                      <span class="badge rounded-pill text-bg-light border">Python</span>
-
-                      <span class="badge rounded-pill text-bg-light border">Django</span>
-
-                      <span class="badge rounded-pill text-bg-light border">Bootstrap</span>
-                    </div>
-
-                    <div>
-                      <a href="#" class="btn btn-info rounded-pill px-4">
-                        View project
-                        <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+              </article>
+            </div>
+          {% empty %}
+            <div class="carousel-item active">
+              <div class="text-center py-5">
+                <p class="text-body-secondary mb-0">No projects available yet.</p>
               </div>
-            </article>
-          </div>
-
-          <!-- Project 2 -->
-          <div class="carousel-item">
-            <article class="card border-0 shadow-sm rounded-5 overflow-hidden">
-              <div class="row g-0 align-items-stretch">
-                <div class="col-lg-6">
-                  <img src="{% static 'images/project-placeholder.jpg' %}" class="img-fluid w-100 h-100 object-fit-cover" alt="Preview of Python project" loading="lazy" decoding="async" />
-                </div>
-
-                <div class="col-lg-6">
-                  <div class="card-body p-4 p-lg-5 h-100 d-flex flex-column justify-content-center">
-                    <div class="mb-3">
-                      <span class="badge rounded-pill text-bg-secondary px-3 py-2">Python</span>
-                    </div>
-
-                    <h3 class="display-6 fw-bold mb-3">Another Project</h3>
-
-                    <p class="text-body-secondary mb-4">An experimental project created to practice software development, data handling and problem solving.</p>
-
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                      <span class="badge rounded-pill text-bg-light border">Python</span>
-
-                      <span class="badge rounded-pill text-bg-light border">Git</span>
-                    </div>
-
-                    <div>
-                      <a href="#" class="btn btn-info rounded-pill px-4">
-                        View project
-                        <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
+            </div>
+          {% endfor %}
         </div>
 
         <!-- Carousel controls -->
-        <div class="d-flex justify-content-center gap-2 mt-4">
-          <button class="btn btn-dark rounded-circle" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev" aria-label="Previous project"><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
+        {% if projects %}
+          <div class="d-flex justify-content-center gap-2 mt-4">
+            <button class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev" aria-label="Previous project" style="width: 44px; height: 44px;"><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
 
-          <button class="btn btn-dark rounded-circle" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next" aria-label="Next project"><i class="bi bi-arrow-right" aria-hidden="true"></i></button>
-        </div>
-      </div>
-
-      <!-- Future Django project loop -->
-
-      <!--  
-    {% for project in projects %}
-
-      <div class="col-md-6 col-lg-4">
-
-        <article class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-
-          {% if project.image %}
-            <img
-              src="{{ project.image.url }}"
-              class="card-img-top"
-              alt="{{ project.title }}"
-              loading="lazy"
-            >
-          {% endif %}
-
-          <div class="card-body p-4">
-
-            <h3 class="h5 fw-bold">
-              {{ project.title }}
-            </h3>
-
-            <p class="text-body-secondary">
-              {{ project.description }}
-            </p>
-
-            <a
-              href="#"
-              class="btn btn-info rounded-pill"
-            >
-              View more
-              <i class="bi bi-arrow-right ms-1"></i>
-            </a>
-
+            <button class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next" aria-label="Next project" style="width: 44px; height: 44px;"><i class="bi bi-arrow-right" aria-hidden="true"></i></button>
           </div>
-
-        </article>
-
+        {% endif %}
       </div>
-
-    {% empty %}
-
-      <p class="text-body-secondary">
-        No projects available yet.
-      </p>
-
-    {% endfor %}
-      -->
     </div>
   </section>
-
-  <!--   ============================================================
+  <!--         ============================================================
      BLOG
-=============================================================   -->
+=============================================================         -->
   <section id="blog" class="py-5 bg-dark text-white" aria-labelledby="blog-title">
     <div class="container py-5">
       <!-- Header -->
@@ -456,7 +359,7 @@
 
       <!-- Future Django blog loop -->
 
-      <!--  
+      <!--        
     {% for post in posts %}
 
       <div class="col-md-6 col-lg-4">
@@ -515,13 +418,13 @@
       </p>
 
     {% endfor %}
-      -->
+            -->
     </div>
   </section>
 
-  <!--   ============================================================
+  <!--         ============================================================
      CONTACT
-=============================================================   -->
+=============================================================         -->
   <section id="contact" class="py-5 bg-body" aria-labelledby="contact-title">
     <div class="container py-5">
       <div class="row justify-content-center">
