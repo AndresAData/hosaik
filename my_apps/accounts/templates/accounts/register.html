@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Register | Hosaik
+{% endblock %}
+
+{% block content %}
+  <section class="min-vh-100 d-flex align-items-center py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4">
+          <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-md-5">
+              <!-- Header -->
+              <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-dark text-info rounded-circle mb-3" style="width: 56px; height: 56px;">
+                  <span class="fw-bold fs-4">H</span>
+                </div>
+
+                <h1 class="h3 fw-bold mb-2">Create your account</h1>
+
+                <p class="text-body-secondary mb-0">Join Hosaik and start building.</p>
+              </div>
+
+              <!-- Register form -->
+              <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                  <div class="alert alert-danger rounded-3" role="alert">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+                <!-- Username -->
+                <div class="mb-3">
+                  <label for="{{ form.username.id_for_label }}" class="form-label fw-semibold">Username</label>
+
+                  <input type="text" name="{{ form.username.html_name }}" id="{{ form.username.id_for_label }}" class="form-control form-control-lg rounded-3" placeholder="Choose a username" autocomplete="username" required autofocus />
+
+                  {% if form.username.errors %}
+                    <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+                  {% endif %}
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label for="{{ form.password1.id_for_label }}" class="form-label fw-semibold">Password</label>
+
+                  <input type="password" name="{{ form.password1.html_name }}" id="{{ form.password1.id_for_label }}" class="form-control form-control-lg rounded-3" placeholder="Create a password" autocomplete="new-password" required />
+
+                  {% if form.password1.errors %}
+                    <div class="text-danger small mt-1">{{ form.password1.errors }}</div>
+                  {% endif %}
+
+                  {% if form.password1.help_text %}
+                    <div class="form-text mt-2">{{ form.password1.help_text|safe }}</div>
+                  {% endif %}
+                </div>
+
+                <!-- Password confirmation -->
+                <div class="mb-4">
+                  <label for="{{ form.password2.id_for_label }}" class="form-label fw-semibold">Confirm password</label>
+
+                  <input type="password" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}" class="form-control form-control-lg rounded-3" placeholder="Repeat your password" autocomplete="new-password" required />
+
+                  {% if form.password2.errors %}
+                    <div class="text-danger small mt-1">{{ form.password2.errors }}</div>
+                  {% endif %}
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn btn-dark btn-lg rounded-pill w-100">
+                  Create account
+                  <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+                </button>
+              </form>
+
+              <!-- Login -->
+              <div class="text-center mt-4">
+                <p class="text-body-secondary mb-0">
+                  Already have an account?
+                  <a href="{% url 'accounts:login' %}" class="fw-semibold text-decoration-none text-info">Sign in</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

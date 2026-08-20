@@ -7,6 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("my_apps.hosaik.urls")),
     path("portafolios/", include("my_apps.portafolios.urls")),
+    path("accounts/", include("my_apps.accounts.urls")),
 ]
 
 

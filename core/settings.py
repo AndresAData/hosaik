@@ -26,6 +26,7 @@ ALLOWED_HOSTS = []
 MY_APPS = [
     "my_apps.hosaik.apps.HosaikConfig",
     "my_apps.portafolios.apps.PortafoliosConfig",
+    "my_apps.accounts.apps.AccountsConfig",
 ]
 
 
@@ -143,3 +144,6 @@ MAILERS = {
         "BACKEND": "django.core.mail.backends.console.EmailBackend",
     },
 }
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "hosaik:index"
+LOGOUT_REDIRECT_URL = "hosaik:index"
